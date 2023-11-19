@@ -1,8 +1,6 @@
 const fs = require('fs');
 const { cwd } = require('node:process');
 
-console.log(cwd());
-
 function read(fn) {
   try {
     return fs.readFileSync(fn, 'utf8');

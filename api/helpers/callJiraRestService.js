@@ -1,3 +1,4 @@
+
 const axios = require('axios');
 const process = require('process');
 
@@ -13,34 +14,23 @@ const callJiraRestService = async (issueBody, callType = 'newIssue', key = null)
     "Content-Type": "application/json"
   };
 
-  if (callType === 'newIssue') {
-    return await axios.post(`https://${endpoint}/rest/api/3/issue`,
-      JSON.stringify(issueBody), { headers: myHeaders })
-      .then(function (response) {
-        return { data: response.data, status: response.status };
-      });
-  }
-  else if (callType === 'updateIssue') {
-    return await axios.put(`https://${endpoint}/rest/api/3/issue/${key}`,
-      JSON.stringify(issueBody), { headers: myHeaders })
-      .then(function (response) {
-        return { data: response.data, status: response.status };
-      })
-      .catch((error) => {
-        console.log(JSON.stringify(error));
-        throw error
-      });
-  }
-  else if (callType === 'transitionIssue') {
-    return await axios.post(`https://${endpoint}/rest/api/3/issue/${key}/transitions`,
-      JSON.stringify(issueBody), { headers: myHeaders })
-      .then(function (response) {
-        return { data: response.data, status: response.status };
-      })
-      .catch((error) => {
-        console.log(JSON.stringify(error));
-        throw error
-      });
+  try {
+    let response;
+    if (callType === 'newIssue') {
+      response = await axios.post(`https://${endpoint}/rest/api/3/issue`,
+        JSON.stringify(issueBody), { headers: myHeaders });
+    }
+    else if (callType === 'updateIssue') {
+      response = await axios.put(`https://${endpoint}/rest/api/3/issue/${key}`,
+        JSON.stringify(issueBody), { headers: myHeaders });
+    }
+    else if (callType === 'transitionIssue') {
+      response = await axios.post(`https://${endpoint}/rest/api/3/issue/${key}/transitions`,
+        JSON.stringify(issueBody), { headers: myHeaders });
+    }
+    return { data: response.data, status: response.status };
+  } catch (error) {
+    throw error;
   }
 };
-exports.callJiraRestService = callJiraRestService;
+module.exports = {callJiraRestService};

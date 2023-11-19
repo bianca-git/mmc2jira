@@ -1,11 +1,9 @@
-const { json } = require('body-parser');
 const { callJiraRestService } = require('../helpers/callJiraRestService');
 const process = require('process');
 const endpoint = process.env.ATLASSIAN_ENDPOINT;
 
-const jiraIssuesApiCall = async (issuesObj) => {
-  const issueData = issuesObj.issueData
-  console.log(issueData)
+const jiraIssuesApiCall = async (issueData) => {
+
   if (!Array.isArray(issueData)) {
     throw new Error('issueData must be an array');
   }
@@ -30,11 +28,10 @@ const jiraIssuesApiCall = async (issuesObj) => {
         default:
           break;
       }
-      return [newResponse, updateResponse, transitionResponse]
     } catch (error) {
       const errorLog = { id: issueData[i].id, updatedAt: new Date().toLocaleString(), error: error };
       throw errorLog;
     }
   }
 }
-exports.jiraIssuesApiCall = jiraIssuesApiCall 
+module.exports = {jiraIssuesApiCall} 

@@ -1,7 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 const path = require('path');
-const bodyParser = require('body-parser');
+const {json, urlencoded} = require('body-parser');
 
 // Importing controllers
 const {getAnnouncements} = require('./api/controllers/getAnnouncements');
@@ -13,8 +13,8 @@ const {updateLastImportDate} = require('./api/controllers/updateLastImportDate')
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(bodyParser.json({ limit: '10mb' }));
-app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
+app.use(json({ limit: '10mb' }));
+app.use(urlencoded({ extended: true, limit: '10mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Route for saving service announcements
@@ -26,16 +26,15 @@ app.get('/getAnnouncements', (req, res) => {
 });
 
 // Route for searching related issues
-app.post('/searchRelatedIssues', (req, res) => {
-  searchRelatedIssues(bodyParser.json(req.body)).then(data => {
+app.post('/searchRelatedIssues', async (req, res) => {
+  await searchRelatedIssues(JSON.parse(JSON.stringify(req.body))).then(data => {
     res.send(data);
   })
 })
 
 // Route for creating new Jira issue
 app.post('/sendDetailsToJira', async (req, res) => {
-  await sendDetailsToJira(bodyParser.json(req.body)).then(data => {
-    console.log(data);
+  await sendDetailsToJira(req.body).then(data => {
     res.send(data);
   })
 })
