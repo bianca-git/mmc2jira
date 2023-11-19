@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 Sentry.init({
   autoSessionTracking: false, // default: true
   environment: process.env.NODE_ENV,
-  dsn: "https://bb07db9c5f9f8ae3118246e15ecf158d@o4506167795122176.ingest.sentry.io/4506239888130048",
+  dsn: 'https://e42e25082755395109313a62b3671454@o4506167795122176.ingest.sentry.io/4506249814605824',
   integrations: [
     // enable HTTP calls tracing
     new Sentry.Integrations.Http({ tracing: true }),
