@@ -7,7 +7,6 @@
     "public": "public"
   },
   "scripts": {
-    "build": "ncc build ./app.js --out ./public --source-map --minify --asset-builds",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
