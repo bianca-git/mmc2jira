@@ -7,6 +7,7 @@
     "public": "public"
   },
   "scripts": {
+    "build": "ncc build ./app.js --out ./public --source-map --minify --asset-builds",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
@@ -14,6 +15,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0",
+    "@vercel/ncc": "^0.38.1",
     "axios": "^1.6.1",
     "base-64": "^1.0.0",
     "body-parser": "^1.20.2",
