@@ -7,7 +7,6 @@
     "public": "public"
   },
   "scripts": {
-    "build": "esbuild app.js --bundle --platform=node --target=node18.8",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
@@ -15,13 +14,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@sentry/node": "^7.80.1",
-    "@sentry/profiling-node": "^1.2.6",
     "axios": "^1.6.1",
     "base-64": "^1.0.0",
     "body-parser": "^1.20.2",
     "dotenv": "^16.3.1",
-    "esbuild": "^0.19.5",
     "express": "^4.18.2",
     "htmltoadf": "^0.1.8"
   },

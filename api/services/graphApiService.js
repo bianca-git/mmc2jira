@@ -6,7 +6,7 @@ const { getAccessToken } = require('../helpers/getAccessToken');
 const getServiceAnnouncements = async (lastModifiedDateTime) => {
     try {
         const accessToken = await getAccessToken()
-        const url = `https://graph.microsoft.com/v1.0/admin/serviceAnnouncement/messages?$count=true&$filter=lastModifiedDateTime gt ${lastModifiedDateTime}&$top=5`
+        const url = `https://graph.microsoft.com/v1.0/admin/serviceAnnouncement/messages?$count=true&$filter=lastModifiedDateTime gt ${lastModifiedDateTime}`
         console.log(url)
         const response = await axios.get(url, {
             headers: {

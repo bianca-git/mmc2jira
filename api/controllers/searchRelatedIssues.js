@@ -12,31 +12,28 @@ const searchRelatedIssues = async (msDataObj) => {
   const relatedIssuesArr = await Promise.all(msDataObj.value.map(async (serviceAnnounce) => {
     const relatedIssue = await getRelatedJiraTickets(serviceAnnounce.id);
     if (relatedIssue.newIssue) {
-      newTickets.push(new NewJiraIssue(serviceAnnounce));
+      newTickets.push({issueNew: new NewJiraIssue(serviceAnnounce), index: serviceAnnounce.index, callType: 'newIssue'});
     }
     else if (relatedIssue.status != 'Closed') {
-      updateTickets.push({ id: relatedIssue.id, key: relatedIssue.key, issueUpdate: new UpdateJiraIssue(relatedIssue, serviceAnnounce) });
+      updateTickets.push({ id: relatedIssue.id, key: relatedIssue.key, issueUpdate: new UpdateJiraIssue(relatedIssue, serviceAnnounce), index: serviceAnnounce.index, callType: 'newIssue' });
     }
     else {
-      transitionTickets.push({ id: relatedIssue.id, key: relatedIssue.key, issueUpdate: new TransitionJiraIssue(relatedIssue, serviceAnnounce) });
+      transitionTickets.push({ id: relatedIssue.id, key: relatedIssue.key, issueTransition: new TransitionJiraIssue(relatedIssue, serviceAnnounce), index: serviceAnnounce.index, callType: 'newIssue' });
     }
     return { ...relatedIssue };
-  }));
-  relatedIssuesArr.sort((item) => item.id);
+  })).catch(error => {
+    console.log(error);
+    throw error;
+  });
+  relatedIssuesArr = [...newTickets, ...updateTickets, ...transitionTickets].sort((a, b) => a.index - b.index)
   const reply = {
     new: newTickets.length,
-    newIssues: newTickets,
-
     update: updateTickets.length,
-    updateIssues: updateTickets,
-
     transtion: transitionTickets.length,
-    transitionIssues: transitionTickets,
-
     total: relatedIssuesArr.length,
-    allIssues: relatedIssuesArr,
+    allIssues: relatedIssuesArr
   }
   return reply;
 }
 
-exports.searchRelatedIssues = searchRelatedIssues
+module.exports = { searchRelatedIssues }

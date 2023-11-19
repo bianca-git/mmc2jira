@@ -1,44 +1,46 @@
 const fs = require('fs');
-const {cwd} = require('node:process');
+const { cwd } = require('node:process');
+
+console.log(cwd());
 
 function read(fn) {
   try {
-    return fs.readFileSync(`${cwd()}/data/${fn}`, 'utf8');
-  } catch (err) {
-    console.error('Error reading file:', err);
+    return fs.readFileSync(fn, 'utf8');
+  } catch (error) {
+    console.error('Error reading file:', error);
     return null;
   }
 }
+
 function write(fn, data) {
   try {
-    fs.writeFileSync(`${cwd()}/data/${fn}`, data);
-  } catch (err) {
-    console.error('Error writing file:', err);
+    fs.writeFileSync(fn, data);
+  } catch (error) {
+    console.error('Error writing file:', error);
   }
 }
+
 function append(fn, data) {
   try {
-    fs.appendFileSync(`${cwd()}/data/${fn}`, data);
+    fs.appendFileSync(fn, data);
   }
-  catch (err) {
-    console.error('Error appending file:', err);
+  catch (error) {
+    console.error('Error appending file:', error);
   }
 }
 function deleteFile(fn) {
   try {
-    fs.unlinkSync(`${cwd()}/data/${fn}`);
-  } catch (err) {
-    console.error('Error deleting file:', err);
+    fs.unlinkSync(fn);
+  } catch (error) {
+    console.error('Error deleting file:', error);
   }
 }
 
 function appendToJsonArrayFile(fn, data) {
   try {
-    let fileContent;
-    // Check if file exists
-    if (fs.existsSync(`${cwd()}/data/${fn}`)) {
-      // Read the file if it exists
-      fileContent = read(`${cwd()}/data/${fn}`);
+    let fileContent = fs.existsSync(fn)
+    if (fileContent) {
+      fileContent = fs.readFileSync(fn).toString()
       // Check if it's a valid JSON array
       if (!FileHero.isValidJsonArray(fileContent)) {
         throw new Error('File content is not a valid JSON array');
@@ -53,9 +55,9 @@ function appendToJsonArrayFile(fn, data) {
     const dataToAppend = (fileContent.length > 1 ? ',' : '') + data + ']';
     fileContent += dataToAppend;
     // Write the updated content back to the file
-    write(`${cwd()}/data/${fn}`, fileContent);
-  } catch (err) {
-    console.error('Error appending to JSON file:', err);
+    return fs.writeFileSync(fn, fileContent, 'utf8');
+  } catch (error) {
+    throw error
   }
 }
 
@@ -63,15 +65,15 @@ function isValidJsonArray(content) {
   try {
     const json = JSON.parse(content);
     return Array.isArray(json);
-  } catch (err) {
+  } catch (error) {
     return false;
   }
 }
 
-function getLatestImportDate() {
+function getLatestImportDate(fn) {
   try {
     // Read the JSON file
-    const fileContents = FileHero.read('lastImportDate.json');
+    const fileContents = FileHero.read(fn);
     const data = JSON.parse(fileContents);
     // Check if data is an array
     if (!Array.isArray(data)) {
@@ -81,9 +83,12 @@ function getLatestImportDate() {
     data.sort((a, b) => b.sortingDate - a.sortingDate);
     // Return the latest 'lastImportDate'
     return data.length > 0 ? data[0].lastImportDate : null;
-  } catch (err) {
-    console.error('Error processing the date:', err);
-    return null;
+  } catch (error) {
+    console.error('Error processing the date:', error);
+    throw error
   }
 }
-exports.FileHero = {read,write,append,deleteFile,appendToJsonArrayFile,isValidJsonArray,getLatestImportDate}
+
+const FileHero = { read, write, append, deleteFile, appendToJsonArrayFile, isValidJsonArray, getLatestImportDate }
+
+module.exports = FileHero

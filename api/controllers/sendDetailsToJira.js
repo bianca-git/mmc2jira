@@ -1,28 +1,18 @@
 
 require('dotenv').config();
-const { createNewJiraIssues } = require('../services/createNewJiraIssues');
-const { updateJiraIssues } = require('../services/updateJiraIssues');
-const { transitionJiraIssues } = require('../services/transitionJiraIssues');
+const { jiraIssuesApiCall } = require('../services/jiraIssuesApiCall');
+const FileHero = require('../helpers/FileHero');
 
 const sendDetailsToJira = async (ticketData) => {
-  const newIssues = ticketData.newIssues;
-  const updateIssues = ticketData.updateIssues;
-  const transitionIssues = ticketData.transitionIssues;
   try {
-    if (newIssues.length > 0) {
-      await createNewJiraIssues(newIssues);
-    }
-    if (updateIssues.length > 0) {
-      await updateJiraIssues(updateIssues);
-    }    
-    if (transitionIssues.length > 0) {
-      await transitionJiraIssues(transitionIssues);
-    }
-    let response = { newIssues: newIssues, updateIssues: updateIssues, transitionIssues: transitionIssues }
-    return response
+    const allIssues = await jiraIssuesApiCall(ticketData.allIssues);
+    return {
+      allIssues
+    };
   } catch (error) {
-    console.log(error);
+    FileHero.appendToJsonArrayFile('./data/errorLog.json', JSON.stringify(error));
     throw error;
   }
 }
-exports.sendDetailsToJira = sendDetailsToJira
+
+module.exports = sendDetailsToJira;

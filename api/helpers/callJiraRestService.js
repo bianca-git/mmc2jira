@@ -1,7 +1,7 @@
 const axios = require('axios');
 const process = require('process');
 
-const callJiraRestService = async (issueBody, key = null, callType = 'newIssue') => {
+const callJiraRestService = async (issueBody, callType = 'newIssue', key = null) => {
   const endpoint = process.env.ATLASSIAN_ENDPOINT;
   const username = process.env.ATLASSIAN_USER_ID;
   const password = process.env.ATLASSIAN_API_TOKEN;
