@@ -10,8 +10,20 @@ on:
   workflow_dispatch:
 
 jobs:
+  confirm_login:
+    runs-on: ubuntu-latest
+    environment:
+      name: 'production'
+
+    steps:
+      - name: Login to Azure
+        uses: azure/login@v1
+        env:
+          credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          
   build:
     runs-on: windows-latest
+    needs: confirm_login
 
     steps:
       - uses: actions/checkout@v4
@@ -47,12 +59,12 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: node-app
-      
+
       - name: Login to Azure
         uses: azure/login@v1
         env:
           credentials: ${{ secrets.AZURE_CREDENTIALS }}
-
+          
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
