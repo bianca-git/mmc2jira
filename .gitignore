@@ -7,3 +7,4 @@ fly
 fly-cert.pub
 AzureCLI.msi
 mmc2jira.publishsettings
+.github/workflows/main_mmc2jira.yml
