@@ -1,9 +1,10 @@
-# $Env:SUBSCRIPTION="mmc2jira"
-# $Env:RESOURCEGROUP="mmc2jira"
+# $Env:SITENAME=
+# $Env:SUBSCRIPTION=
+# $Env:RESOURCEGROUP=
+# $Env:SUBSCRIPTIONID=
 # $Env:LOCATION="australiasoutheast"
-# $Env:PLANNAME="mmc2jira"
+# $Env:PLANNAME=
 # $Env:PLANSKU="F1"
-# $Env:SITENAME="mmc2jira"
 
 # login supports device login, username/password, and service principals
 # see https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest#az_login
@@ -40,3 +41,6 @@ git push azure main
 az webapp browse --name $Env:SITENAME --resource-group $Env:RESOURCEGROUP
 
 
+# To deploy from a remote git repository, uncomment the following commands.
+# https://github.com/Azure/actions-workflow-samples/blob/master/assets/create-secrets-for-GitHub-workflows.md
+az ad sp create-for-rbac --name "$Env:SUBSCRIPTION" --role contributor --scopes /subscriptions/$Env:SUBSCRIPTIONID/resourceGroups/$Env:SUBSCRIPTION --sdk-auth
