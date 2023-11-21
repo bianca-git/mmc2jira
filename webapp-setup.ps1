@@ -1,9 +1,9 @@
-SUBSCRIPTION="Azure subscription 1"
-RESOURCEGROUP="mmc-to-jira"
+SUBSCRIPTION="mmc2jira"
+RESOURCEGROUP="mmc2jira"
 LOCATION="australiasoutheast"
-PLANNAME="mmc-to-jira"
+PLANNAME="mmc2jira"
 PLANSKU="F1"
-SITENAME="mmc-to-jira"
+SITENAME="mmc2jira"
 
 # login supports device login, username/password, and service principals
 # see https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest#az_login
@@ -38,3 +38,5 @@ git push azure main
 
 # browse to the site
 az webapp browse --name $SITENAME --resource-group $RESOURCEGROUP
+
+
