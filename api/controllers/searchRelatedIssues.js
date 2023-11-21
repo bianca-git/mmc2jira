@@ -18,10 +18,10 @@ const searchRelatedIssues = async (msDataObj) => {
       newTickets.push({issueNew: new NewJiraIssue(serviceAnnounce), index: serviceAnnounce.index, callType: 'newIssue'});
     }
     else if (relatedIssue.status != 'Closed') {
-      updateTickets.push({ id: relatedIssue.id, key: relatedIssue.key, issueUpdate: new UpdateJiraIssue(relatedIssue, serviceAnnounce), index: serviceAnnounce.index, callType: 'newIssue' });
+      updateTickets.push({ id: relatedIssue.id, key: relatedIssue.key, issueUpdate: new UpdateJiraIssue(relatedIssue, serviceAnnounce), index: serviceAnnounce.index, callType: 'updateIssue' });
     }
     else {
-      transitionTickets.push({ id: relatedIssue.id, key: relatedIssue.key, issueTransition: new TransitionJiraIssue(relatedIssue, serviceAnnounce), index: serviceAnnounce.index, callType: 'newIssue' });
+      transitionTickets.push({ id: relatedIssue.id, key: relatedIssue.key, issueTransition: new TransitionJiraIssue(relatedIssue, serviceAnnounce), index: serviceAnnounce.index, callType: 'transitionIssue' });
     }
     return { ...relatedIssue };
   })).catch(error => {
