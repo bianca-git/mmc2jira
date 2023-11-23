@@ -10,7 +10,10 @@ const { updateLastImportDate } = require('./api/controllers/updateLastImportDate
 
 // Setting up default options
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
+const atlassian_env = process.env.ATLASSIAN_ENDPOINT;
+const url = process.env.ENVURL || 'http://localhost:3000';
+const dashboardUrl = `${url}/dashboard`
 
 
 app.use(json({ limit: '10mb' }));
@@ -46,6 +49,6 @@ app.post('/updateLastImportDate', (req, res) => {
 })
 
 // Setting up the server
-app.listen(PORT, () =>
-  console.log(`Server running on port ${PORT}\nConnecting to data at ${process.env.ATLASSIAN_ENDPOINT}`)
+app.listen(port, () =>
+  console.log(`Server running on port ${port}\nConnecting to data at ${atlassian_env}\nAccess in browser enabled: ${url}\nConnecting to data at ${dashboardUrl}`)
 );
