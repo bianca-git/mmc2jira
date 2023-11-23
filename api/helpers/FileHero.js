@@ -1,12 +1,11 @@
 const fs = require('fs');
-const { cwd } = require('node:process');
 
 function read(fn) {
   try {
     return fs.readFileSync(fn, 'utf8');
   } catch (error) {
     console.error('Error reading file:', error);
-    return null;
+    throw error
   }
 }
 
@@ -15,6 +14,7 @@ function write(fn, data) {
     fs.writeFileSync(fn, data);
   } catch (error) {
     console.error('Error writing file:', error);
+    throw error
   }
 }
 
@@ -24,6 +24,7 @@ function append(fn, data) {
   }
   catch (error) {
     console.error('Error appending file:', error);
+    throw error
   }
 }
 function deleteFile(fn) {
@@ -31,6 +32,7 @@ function deleteFile(fn) {
     fs.unlinkSync(fn);
   } catch (error) {
     console.error('Error deleting file:', error);
+    throw error
   }
 }
 
@@ -40,9 +42,9 @@ function appendToJsonArrayFile(fn, data) {
     if (fileContent) {
       fileContent = fs.readFileSync(fn).toString()
       // Check if it's a valid JSON array
-      // if (!FileHero.isValidJsonArray(fileContent)) {
-      //   throw new Error('File content is not a valid JSON array');
-      // }
+      if (!FileHero.isValidJsonArray(fileContent)) {
+        throw new Error('File content is not a valid JSON array');
+      }
       // Remove the last "]" character
       fileContent = fileContent.slice(0, -1);
     } else {

@@ -21,9 +21,9 @@ app.use(urlencoded({ extended: true, limit: '10mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Route for saving service announcements
-app.get('/getAnnouncements', (req, res) => {
+app.get('/getAnnouncements', async (req, res) => {
   // Call the function and send the response
-  getAnnouncements().then(data => {
+  await getAnnouncements().then(data => {
     res.send(JSON.parse(JSON.stringify(data)));
   })
 });
@@ -42,8 +42,8 @@ app.post('/sendDetailsToJira', async (req, res) => {
   })
 })
 
-app.post('/updateLastImportDate', (req, res) => {
-  updateLastImportDate().then(data => {
+app.post('/updateLastImportDate', async (req, res) => {
+  await updateLastImportDate().then(data => {
     res.send(data);
   })
 })

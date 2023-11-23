@@ -7,7 +7,7 @@ const endpoint = process.env.ATLASSIAN_ENDPOINT;
 
 const updatedLogs = (logDetails) => {
   try {
-    appendToJsonArrayFile('ticketUpdates.json', logDetails);
+    appendToJsonArrayFile('./data/ticketUpdates.json', JSON.stringify(logDetails));
   } catch (error) {
     throw error;
   }
@@ -44,6 +44,7 @@ const jiraIssuesApiCall = async (issueData) => {
     } catch (error) {
       const errorLog = { ...issueData[i], updatedAt: new Date().toLocaleString(), error: error };
       updatedLogs(errorLog);
+      console.log(errorLog)
       throw errorLog;
     }
   }

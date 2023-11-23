@@ -30,6 +30,7 @@ const callJiraRestService = async (issueBody, callType = 'newIssue', key = null)
     }
     return { data: response.data, status: response.status };
   } catch (error) {
+    console.log(error);
     throw error;
   }
 };

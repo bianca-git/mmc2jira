@@ -10,7 +10,8 @@ const sendDetailsToJira = async (ticketData) => {
       allIssues
     };
   } catch (error) {
-    FileHero.appendToJsonArrayFile('./data/errorLog.json', JSON.stringify(error));
+    console.log(error);
+    FileHero.appendToJsonArrayFile('../../data/errorLog.json', JSON.stringify(error));
     throw error;
   }
 }

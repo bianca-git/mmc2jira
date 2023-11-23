@@ -8,11 +8,7 @@ const getAnnouncements = async () => {
         console.log(lastDate);
         let announcements = await getServiceAnnouncements(lastDate)
         announcements = JSON.parse(announcements);
-        value = announcements.value
-        if (!value || value.length == 0) {
-            throw new Error('No announcements received from the service');
-        }
-        value.forEach(issue => {
+        announcements.value = forEach(issue => {
             if (process.env.ENV == 'development') {
                 const testID = issue.id.replace('MC', '')
                 const valueID = parseInt(testID) + getRandomInt(1, 100);
@@ -25,8 +21,8 @@ const getAnnouncements = async () => {
             return issue;
         }
         );
-        announcements.value = value;
-        FileHero.appendToJsonArrayFile('./data/announcements.json', JSON.stringify(announcements));
+        let log = log(announcements)
+        FileHero.appendToJsonArrayFile('./data/announcements.json', JSON.stringify(log));
         return announcements
     } catch (error) {
         throw error;
@@ -41,3 +37,10 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
 }
 
+function log(fullMessage) {
+    let count = fullMessage.value.count
+    fullMessage.value = count
+    fullMessage.Date = new Date().toString()
+    console.log(message)
+    return fullMessage
+}
