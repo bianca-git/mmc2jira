@@ -1,26 +1,12 @@
 const express = require('express');
 require('dotenv').config();
 const path = require('path');
-const {json, urlencoded} = require('body-parser');
+const { json, urlencoded } = require('body-parser');
 // Importing controllers
-const {getAnnouncements} = require('./api/controllers/getAnnouncements');
-const {searchRelatedIssues} = require('./api/controllers/searchRelatedIssues');
+const { getAnnouncements } = require('./api/controllers/getAnnouncements');
+const { searchRelatedIssues } = require('./api/controllers/searchRelatedIssues');
 const sendDetailsToJira = require('./api/controllers/sendDetailsToJira');
-const {updateLastImportDate} = require('./api/controllers/updateLastImportDate');
-
-// Aplication Insights for Azure App services
-const appInsights = require('applicationinsights');
-appInsights.setup(process.env.APP_INSIGHTS_CNCT)
-.setAutoDependencyCorrelation(true)
-    .setAutoCollectRequests(true)
-    .setAutoCollectPerformance(true, true)
-    .setAutoCollectExceptions(true)
-    .setAutoCollectDependencies(true)
-    .setAutoCollectConsole(true)
-    .setUseDiskRetryCaching(true)
-    .setSendLiveMetrics(true)
-    .setDistributedTracingMode(appInsights.DistributedTracingModes.AI)
-    .start();
+const { updateLastImportDate } = require('./api/controllers/updateLastImportDate');
 
 // Setting up default options
 const app = express();

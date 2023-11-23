@@ -7,7 +7,6 @@
     "public": "public"
   },
   "scripts": {
-    "build": "npm install",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
@@ -15,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "applicationinsights": "^2.9.1",
+    "@google-cloud/secret-manager": "^5.0.1",
     "axios": "^1.6.1",
     "base-64": "^1.0.0",
     "body-parser": "^1.20.2",
@@ -24,7 +23,6 @@
     "htmltoadf": "^0.1.8"
   },
   "devDependencies": {
-    "@flydotio/dockerfile": "^0.4.10",
     "nodemon": "^3.0.1"
   }
 }
