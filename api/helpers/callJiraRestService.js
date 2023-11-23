@@ -17,15 +17,15 @@ const callJiraRestService = async (issueBody, callType = 'newIssue', key = null)
   try {
     let response;
     if (callType === 'newIssue') {
-      response = await axios.post(`https://${endpoint}/rest/api/3/issue`,
+      response = await axios.post(`https://${endpoint}/rest/api/3/issue?returnIssue=true`,
         JSON.stringify(issueBody), { headers: myHeaders });
     }
     else if (callType === 'updateIssue') {
-      response = await axios.put(`https://${endpoint}/rest/api/3/issue/${key}`,
-        JSON.stringify(issueBody), { headers: myHeaders });
+      response = await axios.put(`https://${endpoint}/rest/api/3/issue/${key}?returnIssue=true`,
+        issueBody, { headers: myHeaders });
     }
     else if (callType === 'transitionIssue') {
-      response = await axios.post(`https://${endpoint}/rest/api/3/issue/${key}/transitions`,
+      response = await axios.post(`https://${endpoint}/rest/api/3/issue/${key}/transitions?returnIssue=true`,
         JSON.stringify(issueBody), { headers: myHeaders });
     }
     return { data: response.data, status: response.status };

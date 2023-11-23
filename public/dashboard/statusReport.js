@@ -1,6 +1,6 @@
 async function fetchIssues() {
   try {
-    const response = await fetch('../../data/completedTickets.json');
+    const response = await fetch('../../data/ticketUpdates.json');
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -16,7 +16,7 @@ async function main() {
   let out = '';
   for (const issue of issues) {
     const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
-    ahref = `<a href="https://iag.atlassian.net/jira/browse/${issue.key}">${issue.key}</a>`;
+    ahref = `<a href="${issue.self}">${issue.key}</a>`;
     out += `
        <tr width="100vw">
           <td style="width:10%">${(issue.key === undefined) ? '':ahref}</td>

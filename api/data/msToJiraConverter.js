@@ -1,3 +1,5 @@
+
+
 require('dotenv').config()
 const { convert } = require('./htmltoadf')
 const jiraProjectKey = process.env.JIRA_PROJECT_KEY
@@ -75,6 +77,7 @@ class UpdateJiraIssue {
     const { key, descExisting, status } = existingIssue
     const { prioritySet, labelsSet, fullbody, startDateTime, endDateTime, title, actionRequiredByDateTime } = msToJiraConverter(newMessages)
     const newDescription = `<h2>Updated Content As At ${updateDate}</h2>${fullbody}<h2>Previous Content</h2><blockquote>${descExisting}</blockquote>`
+    const convertToString = JSON.stringify(JSON.parse(convert(newDescription))).replaceAll(`{"type":"hardBreak"},`, '').replaceAll(`{"type":"hardBreak"}`, '')
     const commentText = `<p>Automation: The ticket has been updated with latest content from Microsoft.`
     const comment = JSON.parse(convert(commentText))
     this.fields = {
@@ -84,7 +87,7 @@ class UpdateJiraIssue {
       duedate: actionRequiredByDateTime === undefined ? null : actionRequiredByDateTime, // Action Required By Date & Time
       summary: title,
       labels: labelsSet,
-      description: JSON.parse(convert(newDescription)) // Description
+      description: JSON.parse(convertToString) // Description
     }
     this.update = {
       comment: [{ add: { body: comment } }]
@@ -104,7 +107,8 @@ class TransitionJiraIssue {
     const { key, descExisting, status } = existingIssue
     const { prioritySet, labelsSet, fullbody, startDateTime, endDateTime, title, actionRequiredByDateTime } = msToJiraConverter(newMessages)
     const newDescription = `<h2>Updated Content As At ${updateDate}</h2>${fullbody}<h2>Previous Content</h2><blockquote>${descExisting}</blockquote>`
-    const commentText = `<p>Automation: The ticket has been updated with latest content from Microsoft. Ticket was closed - Reopened and unallocated in case updates change treatment.</p>`
+    const convertToString = JSON.stringify(JSON.parse(convert(newDescription))).replaceAll(`{"type":"hardBreak"},`, '').replaceAll(`{"type":"hardBreak"}`, '')
+    const commentText = `<p>Automation: The ticket has been updated with latest content from Microsoft.</p>`
     const comment = JSON.parse(convert(commentText))
     // this.transitions = { id: 11 } // id,
     this.fields = {
@@ -115,7 +119,7 @@ class TransitionJiraIssue {
       duedate: actionRequiredByDateTime === undefined ? null : actionRequiredByDateTime, // Action Required By Date & Time
       summary: title, // Title
       labels: labelsSet,
-      description: JSON.parse(convert(newDescription)) // Description
+      description: JSON.parse(convertToString) // Description
     }
     this.update = {
       comment: [{ add: { body: comment } }]

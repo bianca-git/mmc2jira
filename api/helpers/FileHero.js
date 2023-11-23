@@ -40,9 +40,9 @@ function appendToJsonArrayFile(fn, data) {
     if (fileContent) {
       fileContent = fs.readFileSync(fn).toString()
       // Check if it's a valid JSON array
-      if (!FileHero.isValidJsonArray(fileContent)) {
-        throw new Error('File content is not a valid JSON array');
-      }
+      // if (!FileHero.isValidJsonArray(fileContent)) {
+      //   throw new Error('File content is not a valid JSON array');
+      // }
       // Remove the last "]" character
       fileContent = fileContent.slice(0, -1);
     } else {
