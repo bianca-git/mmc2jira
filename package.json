@@ -8,6 +8,7 @@
     "data": "data"
   },
   "scripts": {
+    "build": "npm ci",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
