@@ -12,6 +12,7 @@ let consoleLog = () => {
   console.log(`Access in browser enabled: ${url}`)
   console.log(`Connecting to data at ${dashboardUrl}`)
   console.log(`Datetime (UTC): ${new Date().toLocaleString("en-US", {
+    timeZone: 'UTC',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -20,7 +21,7 @@ let consoleLog = () => {
     second: '2-digit',
     timeZoneName: 'long'
 })}`)
-  console.log(`Datetime (Local): ${new Date().toLocaleString("en-AU", {
+  console.log(`Datetime (Local): ${new Date().toLocaleString("en-US", {
     timeZone: "Australia/Melbourne",
     year: 'numeric',
     month: 'long',
