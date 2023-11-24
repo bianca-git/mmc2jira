@@ -22,8 +22,8 @@ const getAnnouncements = async () => {
             return issue;
         })
         announcements.value = value
-        const returnLog = { context: announcements["@odata.context"], count: announcements["@odata.count"], updatedAt: new Date().toLocaleString() }
-        FileHero.appendToJsonArrayFile('./data/announcements.json', JSON.stringify(returnLog));
+        const returnLog = { context: announcements.url, count: announcements["@odata.count"], updatedAt: new Date().toLocaleString() }
+        FileHero.appendToJsonArrayFile('./data/log.json', JSON.stringify(returnLog));
         return announcements
     } catch (error) {
         FileHero.appendToJsonArrayFile('./data/errorLog.json', JSON.stringify(error));

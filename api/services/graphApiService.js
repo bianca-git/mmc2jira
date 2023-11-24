@@ -13,8 +13,9 @@ const getServiceAnnouncements = async (lastModifiedDateTime) => {
                 Authorization: `Bearer ${accessToken}`
             }
         });
-        const data = JSON.stringify(response.data);
-        return data;
+        const data = 
+            {...response.data, url: url};
+        return JSON.stringify(data);
     } catch (error) {
         console.error('Error fetching service announcements:', error.message);
         throw error;
