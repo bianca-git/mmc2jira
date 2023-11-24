@@ -11,8 +11,25 @@ let consoleLog = () => {
   console.log(`Connecting to data at ${atlassian_env}`)
   console.log(`Access in browser enabled: ${url}`)
   console.log(`Connecting to data at ${dashboardUrl}`)
-  console.log(`Datetime (UTC): ${new Date().toISOString()}`)
-  console.log(`Datetime (Local): ${new Date().toString()}`)
+  console.log(`Datetime (UTC): ${new Date().toLocaleString("en-US", {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    timeZoneName: 'long'
+})}`)
+  console.log(`Datetime (Local): ${new Date().toLocaleString("en-AU", {
+    timeZone: "Australia/Melbourne",
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    timeZoneName: 'long'
+})}`)
   console.log(`Cron task running every 15 minutes`)
 }
 

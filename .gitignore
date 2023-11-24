@@ -8,3 +8,4 @@ fly-cert.pub
 AzureCLI.msi
 mmc2jira.publishsettings
 .github
+public/dashboard/ticketUpdates.json
