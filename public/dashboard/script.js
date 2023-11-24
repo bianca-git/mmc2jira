@@ -1,6 +1,6 @@
 
 
-const fetchIssues = async () => fetch('ticketUpdates.json')
+const fetchIssues = async () => fetch('../../data/ticketUpdates.json')
   .then(response => {
     if (!response.ok) {
       throw new Error("HTTP error " + response.status);
