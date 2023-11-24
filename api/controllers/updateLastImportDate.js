@@ -6,7 +6,9 @@ const updateLastImportDate = async () => {
     {
       sortingDate: new Date().valueOf(),
       lastImportDate: new Date().toISOString(),
-      updatedAtLocal: new Date().toString()
+      updatedAtLocal: new Date().toLocaleString("en-US", {
+        timeZone: "Australia/Melbourne"
+    })
     };
     FileHero.appendToJsonArrayFile('./data/lastImportDate.json', JSON.stringify(reportUpdate))
     return reportUpdate;
