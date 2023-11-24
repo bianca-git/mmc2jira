@@ -6,7 +6,7 @@ const updateLastImportDate = async () => {
     {
       sortingDate: new Date().valueOf(),
       lastImportDate: new Date().toISOString(),
-      updatedAtLocal: new Date().toLocaleString("en-AU", {
+      updatedAtLocal: new Date().toLocaleString("en-US", {
         timeZone: "Australia/Melbourne",
         year: 'numeric',
         month: 'long',
