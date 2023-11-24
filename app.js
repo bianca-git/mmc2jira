@@ -22,8 +22,8 @@ app.use(json({ limit: '10mb' }));
 app.use(urlencoded({ extended: true, limit: '10mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-cron.schedule('*/15 9-19 * * 1-5', async () => {
-  console.log('Running a task every 15 minutes, between 09:00 AM and 07:59 PM UTC Timezone, Monday through Friday')
+cron.schedule('*/15 * * * *', async () => {
+  console.log('Running a task every 15 minutes when server is online')
   await index().then(data => {
     res.send(data);
   })
