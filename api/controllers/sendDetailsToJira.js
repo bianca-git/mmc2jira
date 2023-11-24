@@ -11,9 +11,9 @@ const sendDetailsToJira = async (ticketData) => {
     };
   } catch (error) {
     console.log(error);
-    FileHero.appendToJsonArrayFile('../../data/errorLog.json', JSON.stringify(error));
+    FileHero.appendToJsonArrayFile('./data/errorLog.json', JSON.stringify(error));
     throw error;
   }
 }
 
-module.exports = sendDetailsToJira;
+module.exports = { sendDetailsToJira };

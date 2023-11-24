@@ -1,42 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MMC 2 Jira Dashboard</title>
+	<link rel="stylesheet" href="styles.css">
 </head>
-<body bgcolor="#F2F2F2" lang="EN-AU" link="#592c82" vlink="#8b44ce" style="word-wrap:normal;margin:0cm; font-size: 11pt; font-family:sans-serif;">
-	<div>
-		<div align="center">
-			<table class="Style1" border="0" cellspacing="0" cellpadding="0" width="100%"
-				style="border-collapse:collapse">
-				<tbody>
-					<tr style="height:auto">
-						<td width="100%" valign="top"
-							style="width:100.0%;background:white;padding:12.0pt 12.0pt 12.0pt 12.0pt;height:auto;vertical-align:top;">
-							<table class="Style1" border="solid" cellspacing="0" cellpadding="4pt" width="100%" valign="top" style="border-collapse:collapse;border:solid 1px lightgrey; ">
-								<thead width="100%" style="vertical-align: top;">
-									<tr width="100%">
-										<th>Updated</th>
-										<th>Issue #</th>
-										<th>Subject</th>
-										<th>Labels</th>
-										<th>Priority</th>
-										<th>Start</th>
-										<th>End</th>
-										<th>Action By</th>
-									</tr>
-								</thead>
-								<tbody id="data-output"  style="vertical-align: top;">
-								</tbody>
-							</table>
-							
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+
+<body>
+	<div class="caption">Microsoft Messaging Centre Tickets Import to Jira - Status</div>
+	<div id="data-output">
+
 	</div>
-	<script type="text/javascript" src=".\statusReport.js"></script>
+	<script type="module" src="script.js"></script>
 </body>
+
 </html>

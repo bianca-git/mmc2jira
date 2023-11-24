@@ -8,7 +8,8 @@ const getAnnouncements = async () => {
         console.log(lastDate);
         let announcements = await getServiceAnnouncements(lastDate)
         announcements = JSON.parse(announcements);
-        announcements.value = forEach(issue => {
+        let value = announcements.value
+        value.forEach(issue => {
             if (process.env.ENV == 'development') {
                 const testID = issue.id.replace('MC', '')
                 const valueID = parseInt(testID) + getRandomInt(1, 100);
@@ -19,10 +20,10 @@ const getAnnouncements = async () => {
             const index = value.indexOf(issue)
             issue.index = index
             return issue;
-        }
-        );
-        let log = log(announcements)
-        FileHero.appendToJsonArrayFile('./data/announcements.json', JSON.stringify(log));
+        })
+        announcements.value = value
+        const returnLog = { context: announcements["@odata.context"], count: announcements["@odata.count"], updatedAt: new Date().toLocaleString() }
+        FileHero.appendToJsonArrayFile('./data/announcements.json', JSON.stringify(returnLog));
         return announcements
     } catch (error) {
         throw error;
@@ -35,12 +36,4 @@ function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
-}
-
-function log(fullMessage) {
-    let count = fullMessage.value.count
-    fullMessage.value = count
-    fullMessage.Date = new Date().toString()
-    console.log(message)
-    return fullMessage
 }

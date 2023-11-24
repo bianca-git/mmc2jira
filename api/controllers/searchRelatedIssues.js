@@ -12,7 +12,7 @@ const searchRelatedIssues = async (msDataObj) => {
   if (!msDataObj || !msDataObj.value) {
     throw new Error('msDataObj or msDataObj.value is undefined');
   }
-  const relatedIssuesArr = await Promise.all(msDataObj.value.map(async (serviceAnnounce) => {
+  await Promise.all(msDataObj.value.map(async (serviceAnnounce) => {
     const relatedIssue = await getRelatedJiraTickets(serviceAnnounce.id);
     if (relatedIssue.newIssue) {
       newTickets.push({issueNew: new NewJiraIssue(serviceAnnounce), index: serviceAnnounce.index, callType: 'newIssue'});
@@ -36,6 +36,8 @@ const searchRelatedIssues = async (msDataObj) => {
     total: allIssues.length,
     allIssues: allIssues
   }
+  const notice = `New: ${reply.new}, Update: ${reply.update}, Transition: ${reply.transtion}, Total: ${reply.total}`
+  console.log(notice);
   return reply;
 }
 
