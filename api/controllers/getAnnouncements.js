@@ -26,6 +26,7 @@ const getAnnouncements = async () => {
         FileHero.appendToJsonArrayFile('./data/announcements.json', JSON.stringify(returnLog));
         return announcements
     } catch (error) {
+        FileHero.appendToJsonArrayFile('./data/errorLog.json', JSON.stringify(error));
         throw error;
     }
 }
