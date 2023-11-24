@@ -11,6 +11,16 @@ const cron = require('node-cron');
 // const { updateLastImportDate } = require('./api/controllers/updateLastImportDate');
 const index = require('./api/controllers/index');
 
+let consoleLog = () => {
+  console.log(`Server running on port ${port}`)
+  console.log(`Connecting to data at ${atlassian_env}`)
+  console.log(`Access in browser enabled: ${url}`)
+  console.log(`Connecting to data at ${dashboardUrl}`)
+  console.log(`Datetime (UTC): ${new Date().toISOString()}`)
+  console.log(`Datetime (Local): ${new Date().toString()}`)
+  console.log(`Cron task running every 15 minutes`)
+}
+
 // Setting up default options
 const app = express();
 const port = process.env.PORT || 3000;
@@ -23,7 +33,7 @@ app.use(urlencoded({ extended: true, limit: '10mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 cron.schedule('*/15 * * * *', async () => {
-  console.log('Running a task every 15 minutes when server is online')
+  consoleLog()
   await index().then(data => {
     res.send(data);
   })
@@ -68,5 +78,5 @@ app.put('/', async (req, res) => {
 
 // Setting up the server
 app.listen(port, () =>
-  console.log(`Server running on port ${port}\nConnecting to data at ${atlassian_env}\nAccess in browser enabled: ${url}\nConnecting to data at ${dashboardUrl}\nDatetime (UTC): ${new Date().toISOString()}\nDatetime (Local): ${new Date().toString()}`)
+  consoleLog()
 );
