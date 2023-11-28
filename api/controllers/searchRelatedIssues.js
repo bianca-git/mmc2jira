@@ -28,7 +28,7 @@ const searchRelatedIssues = async (msDataObj) => {
     console.log(error);
     throw error;
   });
-  let allIssues = [...newTickets, ...updateTickets, ...transitionTickets].sort((a, b) => a.index - b.index)
+  let allIssues = [{new: newTickets}, {updates: updateTickets}, {transitions: transitionTickets}]
   const reply = {
     new: newTickets.length,
     update: updateTickets.length,

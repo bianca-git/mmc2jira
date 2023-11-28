@@ -9,7 +9,12 @@
   },
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "index": "node ./api/controllers/index.js",
+    "first": "node ./api/controllers/getAnnouncements.js",
+    "second": "node ./api/controllers/searchRelatedIssues.js",
+    "third": "node ./api/controllers/sendDetailsToJira.js",
+    "close": "node ./api/controllers/updateLastImportDate.js"
   },
   "keywords": [],
   "author": "",

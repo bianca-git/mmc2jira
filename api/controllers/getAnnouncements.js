@@ -10,12 +10,12 @@ const getAnnouncements = async () => {
         announcements = JSON.parse(announcements);
         let value = announcements.value
         value.forEach(issue => {
-            if (process.env.ENV == 'development') {
-                const testID = issue.id.replace('MC', '')
-                const valueID = parseInt(testID) + getRandomInt(1, 100);
-                issue.id = "MC" + valueID.toString()
-                issue.environment = 'development'
-            }
+            // if (process.env.ENV == 'development') {
+            //     const testID = issue.id.replace('MC', '')
+            //     const valueID = parseInt(testID) + getRandomInt(1, 100);
+            //     issue.id = "MC" + valueID.toString()
+            //     issue.environment = 'development'
+            // }
             issue.importDateTime = new Date().toString()
             const index = value.indexOf(issue)
             issue.index = index
@@ -33,8 +33,8 @@ const getAnnouncements = async () => {
 module.exports = { getAnnouncements };
 
 
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
-}
+// function getRandomInt(min, max) {
+//     min = Math.ceil(min);
+//     max = Math.floor(max);
+//     return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+// }

@@ -5,6 +5,10 @@ const { json, urlencoded } = require('body-parser');
 const cron = require('node-cron');
 
 const index = require('./api/controllers/index');
+const { getAnnouncements } = require('./api/controllers/getAnnouncements');
+const { searchRelatedIssues } = require('./api/controllers/searchRelatedIssues');
+const { sendDetailsToJira } = require('./api/controllers/sendDetailsToJira');
+const { updateLastImportDate } = require('./api/controllers/updateLastImportDate');
 
 let consoleLog = () => {
   console.log(`Server running on port ${port}`)
@@ -54,6 +58,30 @@ app.use(express.static(path.join(__dirname, 'public')));
 //   scheduled: true,
 //   timezone: "UTC"
 // })
+
+app.get('/getAnnouncements', async (req, res) => {
+  await getAnnouncements().then(data => {
+    res.send(data);
+  })
+})
+
+app.post('/searchRelatedIssues', async (req, res) => {
+  await searchRelatedIssues(req.body).then(data => {
+    res.send(data);
+  })
+})
+
+app.post('/sendDetailsToJira', async (req, res) => {
+  await sendDetailsToJira(req.body).then(data => {
+    res.send(data);
+  })
+})
+
+app.post('/updateLastImportDate', async (req, res) => {
+  await updateLastImportDate(req.body).then(data => {
+    res.send(data);
+  })
+})
 
 app.put('/', async (req, res) => {
   await index().then(data => {
