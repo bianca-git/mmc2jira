@@ -45,15 +45,15 @@ app.use(json({ limit: '10mb' }));
 app.use(urlencoded({ extended: true, limit: '10mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-cron.schedule('*/15 * * * *', async () => {
-  consoleLog()
-  await index().then(data => {
-    res.send(data);
-  })
-}, {
-  scheduled: true,
-  timezone: "UTC"
-})
+// cron.schedule('*/15 * * * *', async () => {
+//   consoleLog()
+//   await index().then(data => {
+//     res.send(data);
+//   })
+// }, {
+//   scheduled: true,
+//   timezone: "UTC"
+// })
 
 app.put('/', async (req, res) => {
   await index().then(data => {
